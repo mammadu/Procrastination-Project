@@ -47,7 +47,9 @@ for s in range (startTimeInSeconds, endTimeInSeconds):
      secondOfDay[s] += 1
      
      
-  #Need to relate date and day of month to second of day.
+
 year = startTime.year
 month = startTime.month
 day = startTime.day
+
+#Need to display data for multiple days
