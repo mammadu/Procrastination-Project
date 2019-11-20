@@ -13,7 +13,7 @@ mts = 60 #this is a constant for converting minutes to seconds
 #this marks the beginning of the procrastination session
 startTime = datetime.datetime.now() 
 
-input ("Press enter to continue")
+input ("Press enter to continue") #just press enter on the keyboard when the procrastination session is over
 
 #this marks the ending of the procrastination session
 endTime = datetime.datetime.now()
@@ -23,6 +23,7 @@ endTime = datetime.datetime.now()
 #print ("First time was ", startTime)
 #print ("Second time was ",  endTime)
 
+#the next two lines convert the start and end times to the second of the day.
 startTimeInSeconds = startTime.hour*hts + startTime.minute*mts + startTime.second
 endTimeInSeconds = endTime.hour*hts + endTime.minute*mts + endTime.second
 
@@ -47,3 +48,6 @@ for s in range (startTimeInSeconds, endTimeInSeconds):
      
      
   #Need to relate date and day of month to second of day.
+year = startTime.year
+month = startTime.month
+day = startTime.day
