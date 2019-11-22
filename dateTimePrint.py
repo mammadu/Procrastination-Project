@@ -52,4 +52,10 @@ year = startTime.year
 month = startTime.month
 day = startTime.day
 
+x = open(str(year)+str(month)+str(day)+".txt", "w+")
+for s in range(len(secondOfDay)):
+    x.write("second of day:" + str(s)+ " Procrastinated:" + str(secondOfDay[s])+"\n")
+x.close()
+
 #Need to display data for multiple days
+#Need to figure out how to read save data
