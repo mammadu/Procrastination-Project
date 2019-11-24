@@ -52,10 +52,15 @@ year = startTime.year
 month = startTime.month
 day = startTime.day
 
+#The next couple lines create a text file detailing which seconds of the day were spent procrastinating.
 x = open(str(year)+str(month)+str(day)+".txt", "w+")
 for s in range(len(secondOfDay)):
     x.write("second of day:" + str(s)+ " Procrastinated:" + str(secondOfDay[s])+"\n")
 x.close()
 
+try:
+    f = open("fuck.txt", "r")
+except FileNotFoundError:
+    print("file was not found")
 #Need to display data for multiple days
 #Need to figure out how to read save data
