@@ -5,8 +5,7 @@ Created on Sun Oct 27 16:42:57 2019
 @author: muham
 """
 
-class counter
-
+       
 import datetime
 
 hts = 3600 #this is a constant for converting hours to seconds
