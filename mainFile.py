@@ -22,12 +22,12 @@ while exit == False:
     #The fourth option closes the program.
     
     choice = input("""
-    Please select option number:\n
-    1) record time wasted\n
-    2) display time wasted on day\n 
-    3) display time wasted over period of time\n
-    4) exit
-    """)
+Please select option number:\n
+1) record time wasted\n
+2) display time wasted on day\n 
+3) display time wasted over period of time\n
+4) exit
+""")
     
     if choice == '1':
         print("you chose option 1")
@@ -35,7 +35,7 @@ while exit == False:
         cn.printTime()
     elif choice == '2':
         print("you chose option 2")
-        # cn.sessionInfo()
+        cn.sessionInfo()
     elif choice == '3':
         print("you chose option 3")
         # cn.timePeriodWasted()
