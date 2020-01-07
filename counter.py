@@ -38,26 +38,42 @@ class counter(object):
         print(self.endTime)
         
     def sessionInfo(self): # this function will show the periods of time wasted and show the total time wasted for the user inputted date
+       
+        #first it prompts the user for a year, month, and day to find a text file
         year = input("enter year \n")
         month = input("enter month \n")
         day = input("enter day \n")
         
         try:
-            with open(str(year) + "-" + str(month) + "-" + str(day) + ".txt", 'r') as x:
+            with open(str(year) + "-" + str(month) + "-" + str(day) + ".txt", 'r') as x: #this opens the file for the day specified
                 print("\nfile opened") #use this line for debugging purposes
-                data = x.readlines()
-                formattedData = []
+                data = x.readlines() #this stores the information on the text file in a list. Each element is a line of the text file.
+                formattedData = [] #this empty list will store the information in data in a nested list
+                totalTimeWasted = []
                 
                 for i in range(0,len(data)):
-                    formattedData.append(data[i].split(': '))
-                    formattedData[i][1] = formattedData[i][1][:-2]
+                    formattedData.append(data[i].split(': ')) #This separates each line into the start/end string and the dateTime information
+                    formattedData[i][1] = formattedData[i][1][:-2] #I use this line to remove the endline from the start time lines.
                     
-                for i in range(0,len(data),2):
+                for i in range(0,len(data),2): #this loop shows the time waste session number, the start time, and the end time.
                     print("\nTime waste session:", i/2+1)
                     print(formattedData[i][0] + ": " + formattedData[i][1])
                     print(formattedData[i+1][0] + ": " + formattedData[i+1][1])
+                    
+                    # starts = []
+                    # ends = []
+                    # starts.append(datetime.strptime(formattedData[i][1]))
+                    # ends.append(datetime.strptime(formattedData[i+1][1]))
+                    
+                    starts = datetime.datetime.strptime(formattedData[i][1], '%Y-%m-%d %H:%M:%S.%f')
+                    ends = datetime.datetime.strptime(formattedData[i+1][1], '%Y-%m-%d %H:%M:%S.%f')
+                    timeWasted = ends - starts
+                    totalTimeWasted.append(timeWasted)
+                    print("Time wasted this session: ", timeWasted)
+                
+                print("\nYour total time wasted is ", sum(totalTimeWasted, datetime.timedelta(0,0)))
 
-        except FileNotFoundError:
+        except FileNotFoundError: #this is just in case the date the user entered doesn't have data.
             print("file was not found")
 
 

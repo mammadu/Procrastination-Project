@@ -45,5 +45,5 @@ Please select option number:\n
 
 
 
-#options 1 have been completed.
-#options 2 and 3 still need to be completed
+#options 1 and 2 have been completed.
+#option 3 still need to be completed
