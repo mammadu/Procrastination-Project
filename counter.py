@@ -17,7 +17,7 @@ class counter(object):
     def saveSession(self): #this function saves the startTime and endTime to a text file.
         with open(str(self.startTime.year)+"-"+str(self.startTime.month)+"-"+str(self.startTime.day)+".txt", "a+") as x:
             x.write("start time: " + str(self.startTime) + "\n")
-            x.write("end time: " + str(self.endTime))
+            x.write("end time: " + str(self.endTime) + "\n")
 
     def recordTimeWasted(self): #this function records the time wasted and will save it to a text file
         input("Press enter to start session")
