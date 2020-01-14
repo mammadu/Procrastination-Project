@@ -6,24 +6,29 @@ Created on Sat Jan  4 19:42:08 2020
 """
 
 import datetime
+import pandas as pd
 
 class counter(object):
         
     #These are variables to save the start time and end time of a time wasting session
     startTime = 0
     endTime = 0
-
+    sessionTimes = {'start':[] ,'end':[]}
     
     def saveSession(self): #this function saves the startTime and endTime to a text file.
         with open(str(self.startTime.year)+"-"+str(self.startTime.month)+"-"+str(self.startTime.day)+".txt", "a+") as x:
             x.write("start time: " + str(self.startTime) + "\n")
             x.write("end time: " + str(self.endTime) + "\n")
+        # sessionTimes['start'].append(startTime)
+        # sessionTimes['end'].append(endTime)
+        # df = pd.DataFrame(sessionTimes)
+        # df.to_csv('test')
 
     def recordTimeWasted(self): #this function records the time wasted and will save it to a text file
         input("Press enter to start session")
        
         #this marks the beginning of the procrastination session
-        self.startTime = datetime.datetime.now() 
+        self.startTime = datetime.datetime.now()
         
         input ("Press enter to end session") #just press enter on the keyboard when the procrastination session is over
        
