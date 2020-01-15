@@ -16,13 +16,15 @@ class counter(object):
     sessionTimes = {'start':[] ,'end':[]}
     
     def saveSession(self): #this function saves the startTime and endTime to a text file.
-        with open(str(self.startTime.year)+"-"+str(self.startTime.month)+"-"+str(self.startTime.day)+".txt", "a+") as x:
-            x.write("start time: " + str(self.startTime) + "\n")
-            x.write("end time: " + str(self.endTime) + "\n")
-        # sessionTimes['start'].append(startTime)
-        # sessionTimes['end'].append(endTime)
-        # df = pd.DataFrame(sessionTimes)
-        # df.to_csv('test')
+        # with open(str(self.startTime.year)+"-"+str(self.startTime.month)+"-"+str(self.startTime.day)+".txt", "a+") as x:
+        #     x.write("start time: " + str(self.startTime) + "\n")
+        #     x.write("end time: " + str(self.endTime) + "\n")
+        self.sessionTimes['start'].append(self.startTime)
+        self.sessionTimes['end'].append(self.endTime)
+        df = pd.DataFrame(self.sessionTimes)
+        with open('test.csv','a') as csv:
+            csv.write(df)
+        # df.to_csv('test.csv','a', header = False)
 
     def recordTimeWasted(self): #this function records the time wasted and will save it to a text file
         input("Press enter to start session")
