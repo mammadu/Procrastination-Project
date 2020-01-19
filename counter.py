@@ -22,9 +22,10 @@ class counter(object):
         self.sessionTimes['start'].append(self.startTime)
         self.sessionTimes['end'].append(self.endTime)
         df = pd.DataFrame(self.sessionTimes)
-        with open('test.csv','a') as csv:
-            csv.write(df)
-        # df.to_csv('test.csv','a', header = False)
+        # with open('test.csv','a') as csv:
+        #     # csv.write(df)
+        #     df.to_csv(csv, mode ='a', header=csv.tell()==0)
+        df.to_csv('test.csv', mode ='a')
 
     def recordTimeWasted(self): #this function records the time wasted and will save it to a text file
         input("Press enter to start session")
@@ -85,3 +86,4 @@ class counter(object):
 
 
 #i need to add a way to show the total time wasted in the sessionInfo section
+# i need to figure out how to make the saveSession function properly format the csv file to avoid skipping rows
