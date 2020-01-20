@@ -14,7 +14,7 @@ class counter(object):
     startTime = 0
     endTime = 0
     sessionTimes = {'start':[] ,'end':[]}
-    
+
     def saveSession(self): #this function saves the startTime and endTime to a text file.
         # with open(str(self.startTime.year)+"-"+str(self.startTime.month)+"-"+str(self.startTime.day)+".txt", "a+") as x:
         #     x.write("start time: " + str(self.startTime) + "\n")
@@ -22,10 +22,10 @@ class counter(object):
         self.sessionTimes['start'].append(self.startTime)
         self.sessionTimes['end'].append(self.endTime)
         df = pd.DataFrame(self.sessionTimes)
-        # with open('test.csv','a') as csv:
-        #     # csv.write(df)
-        #     df.to_csv(csv, mode ='a', header=csv.tell()==0)
-        df.to_csv('test.csv', mode ='a')
+        data = df.iloc[-1:,0:]
+        print(data)
+        with open('test.csv',  mode ='a+') as csv:
+            data.to_csv(csv, mode ='a', header=csv.tell()==0, line_terminator = "\n")
 
     def recordTimeWasted(self): #this function records the time wasted and will save it to a text file
         input("Press enter to start session")
@@ -42,8 +42,8 @@ class counter(object):
         
     
     def printTime(self): #this prints the most recently saved startTime and endTime variables
-        print(self.startTime)
-        print(self.endTime)
+        print('start time is ', self.startTime)
+        print('end time is ', self.endTime)
         
     def sessionInfo(self): # this function will show the periods of time wasted and show the total time wasted for the user inputted date
        
