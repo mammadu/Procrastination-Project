@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+1# -*- coding: utf-8 -*-
 """
 Spyder Editor
 
@@ -45,5 +45,7 @@ Please select option number:\n
 
 
 
-#options 1 and 2 have been completed.
+#2020-3-3 todo
+#options 1 has been completed.
+#option 2 needs to be redone to use csvs
 #option 3 still need to be completed

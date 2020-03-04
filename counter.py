@@ -19,13 +19,12 @@ class counter(object):
         # with open(str(self.startTime.year)+"-"+str(self.startTime.month)+"-"+str(self.startTime.day)+".txt", "a+") as x:
         #     x.write("start time: " + str(self.startTime) + "\n")
         #     x.write("end time: " + str(self.endTime) + "\n")
-        self.sessionTimes['start'].append(self.startTime)
-        self.sessionTimes['end'].append(self.endTime)
-        df = pd.DataFrame(self.sessionTimes)
-        data = df.iloc[-1:,0:]
-        print(data)
-        with open('test.csv',  mode ='a+') as csv:
-            data.to_csv(csv, mode ='a', header=csv.tell()==0, line_terminator = "\n")
+        self.sessionTimes['start'].append(self.startTime) #adding start time to sessionTimes dictionary
+        self.sessionTimes['end'].append(self.endTime) #adding end time to sessionTimes dictionary
+        df = pd.DataFrame(self.sessionTimes) #creating dataframe from sessionTimes
+        data = df.iloc[-1:,0:] #this stores stores the last added value of the dataframe df
+        with open(str(self.startTime.year)+"-"+str(self.startTime.month)+"-"+str(self.startTime.day)+".csv",  mode ='a+') as csv:
+            data.to_csv(csv, mode ='a', header=csv.tell()==0, line_terminator = "\n") #Here we insert the data dataframe into the csv file
 
     def recordTimeWasted(self): #this function records the time wasted and will save it to a text file
         input("Press enter to start session")
@@ -85,5 +84,5 @@ class counter(object):
             print("file was not found")
 
 
-#i need to add a way to show the total time wasted in the sessionInfo section
-# i need to figure out how to make the saveSession function properly format the csv file to avoid skipping rows
+#2020-3-3 todo
+#i need to redesign the sessionInfo function. It's quite cluttered, I may be able to make it more concise
