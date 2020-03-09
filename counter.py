@@ -7,6 +7,7 @@ Created on Sat Jan  4 19:42:08 2020
 
 import datetime
 import pandas as pd
+import csv
 
 class counter(object):
         
@@ -52,20 +53,20 @@ class counter(object):
         day = input("enter day \n")
         
         try:
-            with open(str(year) + "-" + str(month) + "-" + str(day) + ".txt", 'r') as x: #this opens the file for the day specified
+            with open(str(year) + "-" + str(month) + "-" + str(day) + ".csv", 'r') as x: #this opens the file for the day specified
                 print("\nfile opened") #use this line for debugging purposes
                 data = x.readlines() #this stores the information on the text file in a list. Each element is a line of the text file.
                 formattedData = [] #this empty list will store the information in data in a nested list
                 totalTimeWasted = []
                 
                 for i in range(0,len(data)):
-                    formattedData.append(data[i].split(': ')) #This separates each line into the start/end string and the dateTime information
-                    formattedData[i][1] = formattedData[i][1][:-2] #I use this line to remove the endline from the start time lines.
+                    formattedData.append(data[i].split(',')) #this separates each line into the index, start time, and end time.
+                    formattedData[i][2] = formattedData[i][2][:-2] #This removes the newline character (\n) in each line.
                     
-                for i in range(0,len(data),2): #this loop shows the time waste session number, the start time, and the end time.
-                    print("\nTime waste session:", i/2+1)
-                    print(formattedData[i][0] + ": " + formattedData[i][1])
-                    print(formattedData[i+1][0] + ": " + formattedData[i+1][1])
+                for i in range(1,len(data)): #this loop shows the time waste session number, the start time, and the end time.
+                    print("\nTime waste session:", i)
+                    print("start: " + formattedData[i][1])
+                    print("end :" + formattedData[i][2])
                     
                     # starts = []
                     # ends = []
@@ -73,7 +74,7 @@ class counter(object):
                     # ends.append(datetime.strptime(formattedData[i+1][1]))
                     
                     starts = datetime.datetime.strptime(formattedData[i][1], '%Y-%m-%d %H:%M:%S.%f')
-                    ends = datetime.datetime.strptime(formattedData[i+1][1], '%Y-%m-%d %H:%M:%S.%f')
+                    ends = datetime.datetime.strptime(formattedData[i][2], '%Y-%m-%d %H:%M:%S.%f')
                     timeWasted = ends - starts
                     totalTimeWasted.append(timeWasted)
                     print("Time wasted this session: ", timeWasted)
@@ -84,5 +85,5 @@ class counter(object):
             print("file was not found")
 
 
-#2020-3-3 todo
-#i need to redesign the sessionInfo function. It's quite cluttered, I may be able to make it more concise
+#2020-3-9 todo
+#complete option 3
