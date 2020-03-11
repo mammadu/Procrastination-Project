@@ -51,7 +51,10 @@ class counter(object):
         year = input("enter year \n")
         month = input("enter month \n")
         day = input("enter day \n")
+        self.timeWastedOnDay(year,month,day)
         
+
+    def timeWastedOnDay(self, year, month, day):
         try:
             with open(str(year) + "-" + str(month) + "-" + str(day) + ".csv", 'r') as x: #this opens the file for the day specified
                 print("\nfile opened") #use this line for debugging purposes
@@ -67,11 +70,6 @@ class counter(object):
                     print("\nTime waste session:", i)
                     print("start: " + formattedData[i][1])
                     print("end :" + formattedData[i][2])
-                    
-                    # starts = []
-                    # ends = []
-                    # starts.append(datetime.strptime(formattedData[i][1]))
-                    # ends.append(datetime.strptime(formattedData[i+1][1]))
                     
                     starts = datetime.datetime.strptime(formattedData[i][1], '%Y-%m-%d %H:%M:%S.%f')
                     ends = datetime.datetime.strptime(formattedData[i][2], '%Y-%m-%d %H:%M:%S.%f')
