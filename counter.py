@@ -74,8 +74,6 @@ class counter(object):
         return totalTimeWasted #returns a list in the form [time wasted during a session]
         
 
-
-
     def sessionInfo(self): # this function will show the periods of time wasted and show the total time wasted for the user inputted date
        
         #first it prompts the user for a year, month, and day to find a text file
