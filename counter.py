@@ -28,15 +28,9 @@ class counter(object):
 
     def recordTimeWasted(self): #this function records the time wasted and will save it to a text file
         input("Press enter to start session")
-       
-        #this marks the beginning of the procrastination session
-        self.startTime = datetime.datetime.now()
-        
+        self.startTime = datetime.datetime.now() #this marks the beginning of the procrastination session
         input ("Press enter to end session") #just press enter on the keyboard when the procrastination session is over
-       
-        #this marks the ending of the procrastination session
-        self.endTime = datetime.datetime.now()
-        
+        self.endTime = datetime.datetime.now()#this marks the ending of the procrastination session
         self.saveSession()
         
     
@@ -45,6 +39,14 @@ class counter(object):
         print('end time is ', self.endTime)
 
         
+
+    def getDate(self): #this function creates a tuple of the date from the user input
+        year = input("enter year \n")
+        month = input("enter month \n")
+        day = input("enter day \n")
+        
+        return year,month,day
+
     def formatData(self, year, month, day): #This function opens and formats save data for later use.
         try:
             with open(str(year) + "-" + str(month) + "-" + str(day) + ".csv", 'r') as x: #this opens the file for the day specified
@@ -77,10 +79,8 @@ class counter(object):
     def sessionInfo(self): # this function will show the periods of time wasted and show the total time wasted for the user inputted date
        
         #first it prompts the user for a year, month, and day to find a text file
-        year = input("enter year \n")
-        month = input("enter month \n")
-        day = input("enter day \n")
-        q = self.formatData(year,month,day)
+        s = self.getDate()
+        q = self.formatData(s[0],s[1],s[2])
         r = self.timeWastedOnDay(q)
         for i in range(1,len(q)):
             print("\nTime waste session:", i)
@@ -89,5 +89,18 @@ class counter(object):
             print("Time wasted this session: ",r[i-1])
         print("\nYour total time wasted is ", sum(r, datetime.timedelta(0,0)))
 
-#2020-3-9 todo
+
+
+    def timePeriodWasted(self):
+        print("enter beginning of range ")
+        begRange = self.getDate()
+        begDate = datetime.date(begRange[0],begRange[1],begRange[2])
+        print("enter end of range")
+        endRange = self.getDate()
+        endDate = = datetime.date(endRange[0],endRange[1],endRange[2])
+        for i in range(???):
+            for i in range
+
+#2020-3-28 todo
 #complete option 3
+#   How do I iterate over two dates?
