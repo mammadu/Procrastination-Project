@@ -35,10 +35,10 @@ Please select option number:\n
         cn.printTime()
     elif choice == '2':
         print("you chose option 2")
-        cn.sessionInfo()
+        cn.sessionInfo(cn.getDate())
     elif choice == '3':
         print("you chose option 3")
-        # cn.timePeriodWasted()
+        cn.timePeriodWasted()
     elif choice == '4':
         print("you chose option 4. Goodbye")
         exit = True
@@ -47,5 +47,7 @@ Please select option number:\n
 
 #2020-3-9 todo
 #options 1,2 have been completed.
-#option 3 still need to be completed
-#   How do I iterate over two dates?
+#option 3 still has been completed but may possibly need to split into different functions
+# Create functions for each of the main file options.
+# Develop way to show time wasted during each session in option 3
+# Develop a way to show most common time waste periods in a day.

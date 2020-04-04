@@ -7,6 +7,7 @@ Created on Sat Jan  4 19:42:08 2020
 
 import datetime
 import pandas as pd
+from dateutil.rrule import rrule, DAILY
 
 class counter(object):
         
@@ -45,12 +46,13 @@ class counter(object):
         month = input("enter month \n")
         day = input("enter day \n")
         
-        return year,month,day
+        return int(year), int(month), int(day)
 
     def formatData(self, year, month, day): #This function opens and formats save data for later use.
         try:
             with open(str(year) + "-" + str(month) + "-" + str(day) + ".csv", 'r') as x: #this opens the file for the day specified
-                    print("\nfile opened") #use this line for debugging purposes
+                    #use the next line for debugging purposes
+                    # print("\nfile opened") #use this line for debugging purposes
                     data = x.readlines() #this stores the information on the text file in a list. Each element is a line of the text file.
                     formattedData = [] #this empty list will store the information in data in a nested list
                     
@@ -60,47 +62,59 @@ class counter(object):
                         
                     return formattedData #This returns a 2D list in the form [index, [txt file index, start time, end time]]
         except FileNotFoundError: #this is just in case the date the user entered doesn't have data.
-            print("file was not found")
+            #the next line is for debugging pur
+            # print("file was not found") 
+            return None
+            
 
 
-    def timeWastedOnDay(self, fileData): #this function determines how much time was wasted in a day. The fileData parameter comes from the formatData function
+    def timeWastedOnDay(self, fileData): #this function determines how much time was wasted in a day. The fileData argument comes from the formatData function
         totalTimeWasted = []
 
         for i in range(1,len(fileData)): #this loop shows the time waste session number, the start time, and the end time.
 
-            starts = datetime.datetime.strptime(fileData[i][1], '%Y-%m-%d %H:%M:%S.%f')
-            ends = datetime.datetime.strptime(fileData[i][2], '%Y-%m-%d %H:%M:%S.%f')
-            timeWasted = ends - starts
-            totalTimeWasted.append(timeWasted)
+            starts = datetime.datetime.strptime(fileData[i][1], '%Y-%m-%d %H:%M:%S.%f') #converts starts string data into dateTime object
+            ends = datetime.datetime.strptime(fileData[i][2], '%Y-%m-%d %H:%M:%S.%f') #converts ends string data into dateTime object
+            timeWasted = ends - starts #this creates timeDelta objects with the time wasted.
+            totalTimeWasted.append(timeWasted) #adds the time wasted data in the loop to the end of the list.
         
-        return totalTimeWasted #returns a list in the form [time wasted during a session]
+        return totalTimeWasted #returns a list in the form [time wasted during a session]. Each element is a timedelta object
         
 
-    def sessionInfo(self): # this function will show the periods of time wasted and show the total time wasted for the user inputted date
-       
-        #first it prompts the user for a year, month, and day to find a text file
-        s = self.getDate()
-        q = self.formatData(s[0],s[1],s[2])
-        r = self.timeWastedOnDay(q)
-        for i in range(1,len(q)):
+    def sessionInfo(self,date): # this function will show the periods of time wasted for a given date. The date must be in the form (int(year), int(month), int(day)). The function getDate supplies dates in this form.
+
+        data = self.formatData(date[0],date[1],date[2])
+        timeWastedList = self.timeWastedOnDay(data)
+        for i in range(1,len(data)):
             print("\nTime waste session:", i)
-            print("start: " + q[i][1])
-            print("end :" + q[i][2])
-            print("Time wasted this session: ",r[i-1])
-        print("\nYour total time wasted is ", sum(r, datetime.timedelta(0,0)))
+            print("start: " + data[i][1])
+            print("end :" + data[i][2])
+            print("Time wasted this session: ",timeWastedList[i-1])
+        print("\nYour total time wasted is ", sum(timeWastedList, datetime.timedelta(0,0))) #the sum function takes an iterable and the starting value and adds up all the elements inside it. datetime.timedelta(0,0) is 0:00:00 and 0 days. This allows the function to work, otherwise it'll try to add a timedela to an integer
 
 
 
-    def timePeriodWasted(self):
-        print("enter beginning of range ")
+    def timePeriodWasted(self): #this function shows how much time was wasted over a time period
+        print("enter beginning of range ") #the next four lines get the date from the user
         begRange = self.getDate()
-        begDate = datetime.date(begRange[0],begRange[1],begRange[2])
-        print("enter end of range")
+        print("\nenter end of range")
         endRange = self.getDate()
-        endDate = = datetime.date(endRange[0],endRange[1],endRange[2])
-        for i in range(???):
-            for i in range
+        begDate = datetime.date(begRange[0],begRange[1],begRange[2]) #the next two lines convert the dates into datetime objects.
+        endDate = datetime.date(endRange[0],endRange[1],endRange[2])
+        diff = endDate - begDate #this is a timeDelta object. It tells the differnce in days and seconds between datetime objects
+        timePeriod = list(rrule(freq = DAILY, dtstart = begDate, count = diff.days+1)) #this function creates a list of dateTime objects from the beginning date to the end date.
+        timesWasted = []
+        for i in timePeriod:
+            iData = self.formatData(i.year,i.month,i.day)
+            if (iData is not None):
+                x = self.timeWastedOnDay(iData)
+                for j in x:
+                    timesWasted.append(j)
+        t = sum(timesWasted, datetime.timedelta(0,0))
+        print("\nYour total time wasted is ", t)
 
-#2020-3-28 todo
-#complete option 3
-#   How do I iterate over two dates?
+
+#2020-4-3 todo
+# Create functions for each of the main file options.
+# rewrite sessionInfo to have data as an argument
+# Develop a way to show most common time waste periods in a day.
